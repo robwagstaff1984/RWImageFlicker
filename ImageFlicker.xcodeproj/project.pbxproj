@@ -12,6 +12,7 @@
 		3656E3191970CC8B004B4759 /* RWImageFlickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3656E3181970CC8B004B4759 /* RWImageFlickerViewController.m */; };
 		3656E31E1970CC8B004B4759 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3656E31D1970CC8B004B4759 /* Images.xcassets */; };
 		3656E32A1970CC8C004B4759 /* ImageFlickerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3656E3291970CC8C004B4759 /* ImageFlickerTests.m */; };
+		3685A25E1971BF4800CEAB58 /* RWImageCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3685A25D1971BF4800CEAB58 /* RWImageCollectionView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +38,8 @@
 		3656E3281970CC8C004B4759 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3656E3291970CC8C004B4759 /* ImageFlickerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageFlickerTests.m; sourceTree = "<group>"; };
 		3685A25B1970F00F00CEAB58 /* ImageFlicker-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ImageFlicker-Prefix.pch"; sourceTree = "<group>"; };
+		3685A25C1971BF4800CEAB58 /* RWImageCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWImageCollectionView.h; sourceTree = "<group>"; };
+		3685A25D1971BF4800CEAB58 /* RWImageCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWImageCollectionView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +123,8 @@
 			children = (
 				3656E3171970CC8B004B4759 /* RWImageFlickerViewController.h */,
 				3656E3181970CC8B004B4759 /* RWImageFlickerViewController.m */,
+				3685A25C1971BF4800CEAB58 /* RWImageCollectionView.h */,
+				3685A25D1971BF4800CEAB58 /* RWImageCollectionView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -230,6 +235,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3656E3191970CC8B004B4759 /* RWImageFlickerViewController.m in Sources */,
+				3685A25E1971BF4800CEAB58 /* RWImageCollectionView.m in Sources */,
 				3656E3161970CC8B004B4759 /* AppDelegate.m in Sources */,
 				3656E3131970CC8B004B4759 /* main.m in Sources */,
 			);

@@ -15,5 +15,6 @@
 
 #define isIPhone ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
 #define isIPad ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+#define STATUS_BAR_HEIGHT 20
 
 #endif

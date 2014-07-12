@@ -7,62 +7,54 @@
 //
 
 #import "RWImageFlickerViewController.h"
+#import "RWImageCollectionView.h"
 
 #define REUSE_IDENTIFIER @"imageCellIdentifier"
-#define CELL_MARGIN (SCREEN_WIDTH * 0.025)
-#define CELL_WIDTH (SCREEN_WIDTH * 0.3)
-#define CELL_HEIGHT (SCREEN_WIDTH * 0.3)
 
 @interface RWImageFlickerViewController ()
 
-@property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, strong) RWImageCollectionView *imageCollectionView;
+@property (nonatomic, strong) UISearchBar *searchBar;
+@property (nonatomic, strong) UISearchController *searchController;
 
 @end
 
 @implementation RWImageFlickerViewController
 
 #pragma mark - view lifecycle
-- (id)init
-{
-    self = [super init];
-    if (self) {
-        
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    [self setupSearch];
     [self setupCollectionView];
     [super viewDidLoad];
 }
 
 
 #pragma mark - setup
+-(void) setupSearch{
+    self.searchBar= [[UISearchBar alloc] initWithFrame:CGRectMake(0, STATUS_BAR_HEIGHT, SCREEN_WIDTH, 40)];
+    self.searchBar.placeholder = @"Search for images";
+    self.searchBar.delegate = self;
+    [self.view addSubview:self.searchBar];
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+}
+
 -(void) setupCollectionView
 {
-    UICollectionViewFlowLayout* layout = [UICollectionViewFlowLayout new];
-//    layout.minimumLineSpacing = 50;
-//    layout.minimumInteritemSpacing = 0;
-//    [self.flowLayout setItemSize:CGSizeMake(191, 160)];
-    [layout setScrollDirection:UICollectionViewScrollDirectionVertical];
-    layout.minimumInteritemSpacing = 0;
-    layout.sectionInset = UIEdgeInsetsMake(CELL_MARGIN,CELL_MARGIN,CELL_MARGIN,CELL_MARGIN);
-    
-    
-    CGRect collectionViewFrame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y + 100, self.view.frame.size.width, self.view.frame.size.height - 100);
-    self.collectionView=[[UICollectionView alloc] initWithFrame:collectionViewFrame collectionViewLayout:layout];
-    [self.collectionView setDataSource:self];
-    [self.collectionView setDelegate:self];
-    
-    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:REUSE_IDENTIFIER];
-    [self.collectionView setBackgroundColor:[UIColor redColor]];
-    self.collectionView.bounces = YES;
-    [self.collectionView setShowsHorizontalScrollIndicator:NO];
-    [self.collectionView setShowsVerticalScrollIndicator:NO];
-    
-    [self.view addSubview:_collectionView];
+    self.imageCollectionView = [RWImageCollectionView imageCollectionViewWithFrame:[self collectionViewFrame]];
+    [self.imageCollectionView setDataSource:self];
+    [self.imageCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:REUSE_IDENTIFIER];
+
+    [self.view addSubview:self.imageCollectionView];
+}
+
+-(CGRect) collectionViewFrame {
+    int yPosition =  self.searchBar.frame.origin.y + self.searchBar.frame.size.height;
+    int height = SCREEN_HEIGHT - STATUS_BAR_HEIGHT - self.searchBar.frame.size.height;
+    CGRect collectionViewFrame = CGRectMake(0, yPosition, SCREEN_WIDTH, height);
+    return collectionViewFrame;
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -82,11 +74,39 @@
     return cell;
 }
 
-#pragma mark - UICollectionViewDelegateFlowLayout
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    return CGSizeMake(CELL_WIDTH, CELL_HEIGHT);
+
+
+#pragma mark - search bar 
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+   // isSearching = YES;
 }
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+//    NSLog(@"Text change - %d",isSearching);
+//    
+//    //Remove all objects first.
+//    [filteredContentList removeAllObjects];
+//    
+//    if([searchText length] != 0) {
+//        isSearching = YES;
+//        [self searchTableList];
+//    }
+//    else {
+//        isSearching = NO;
+//    }
+//    // [self.tblContentList reloadData];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    NSLog(@"Cancel clicked");
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    NSLog(@"Search Clicked");
+   // [self searchTableList];
+}
+
 
 
 @end

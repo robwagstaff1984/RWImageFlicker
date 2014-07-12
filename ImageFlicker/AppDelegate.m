@@ -23,6 +23,9 @@
     RWImageFlickerViewController *imageFlickerViewController = [[RWImageFlickerViewController alloc] init];
     self.window.rootViewController = imageFlickerViewController;
     [self.window makeKeyAndVisible];
+    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
     return YES;
 }
 

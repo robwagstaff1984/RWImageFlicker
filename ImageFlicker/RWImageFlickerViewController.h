@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RWImageFlickerViewController : UIViewController<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+@interface RWImageFlickerViewController : UIViewController<UICollectionViewDataSource, UISearchBarDelegate>
 
 
 @end
