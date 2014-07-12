@@ -81,6 +81,7 @@
 		3656E30F1970CC8B004B4759 /* ImageFlicker */ = {
 			isa = PBXGroup;
 			children = (
+				369F5AFE1971E39D0005CEE0 /* Network */,
 				3656E3341970CD2B004B4759 /* Model */,
 				3656E3331970CD21004B4759 /* View */,
 				3656E3141970CC8B004B4759 /* AppDelegate.h */,
@@ -134,6 +135,13 @@
 			children = (
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		369F5AFE1971E39D0005CEE0 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

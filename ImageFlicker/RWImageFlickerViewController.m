@@ -15,7 +15,6 @@
 
 @property (nonatomic, strong) RWImageCollectionView *imageCollectionView;
 @property (nonatomic, strong) UISearchBar *searchBar;
-@property (nonatomic, strong) UISearchController *searchController;
 
 @end
 
@@ -25,10 +24,11 @@
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+
     [self setupSearch];
     [self setupCollectionView];
-    [super viewDidLoad];
 }
 
 
@@ -38,7 +38,6 @@
     self.searchBar.placeholder = @"Search for images";
     self.searchBar.delegate = self;
     [self.view addSubview:self.searchBar];
-    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
 }
 
 -(void) setupCollectionView
@@ -46,6 +45,7 @@
     self.imageCollectionView = [RWImageCollectionView imageCollectionViewWithFrame:[self collectionViewFrame]];
     [self.imageCollectionView setDataSource:self];
     [self.imageCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:REUSE_IDENTIFIER];
+    self.imageCollectionView.backgroundColor = [UIColor redColor];
 
     [self.view addSubview:self.imageCollectionView];
 }
@@ -74,39 +74,9 @@
     return cell;
 }
 
-
-
-#pragma mark - search bar 
-
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
-   // isSearching = YES;
-}
-
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-//    NSLog(@"Text change - %d",isSearching);
-//    
-//    //Remove all objects first.
-//    [filteredContentList removeAllObjects];
-//    
-//    if([searchText length] != 0) {
-//        isSearching = YES;
-//        [self searchTableList];
-//    }
-//    else {
-//        isSearching = NO;
-//    }
-//    // [self.tblContentList reloadData];
-}
-
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-    NSLog(@"Cancel clicked");
-}
-
+#pragma mark - UISearchBarDelegate
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-    NSLog(@"Search Clicked");
-   // [self searchTableList];
+    [searchBar resignFirstResponder];
 }
-
-
 
 @end
