@@ -8,6 +8,7 @@
 
 #import "RWImageFlickerViewController.h"
 #import "RWImageCollectionView.h"
+#import "RWImageDataManager.h"
 
 #define REUSE_IDENTIFIER @"imageCellIdentifier"
 
@@ -15,6 +16,7 @@
 
 @property (nonatomic, strong) RWImageCollectionView *imageCollectionView;
 @property (nonatomic, strong) UISearchBar *searchBar;
+
 
 @end
 
@@ -24,6 +26,9 @@
 
 - (void)viewDidLoad
 {
+    [RWImageDataManager sharedImageDataManager].delegate = self;
+    [[RWImageDataManager sharedImageDataManager] retrieveImagesWithSearchTerm:@"rob"];
+    
     [super viewDidLoad];
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
@@ -60,7 +65,8 @@
 #pragma mark - UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 24;
+    int currentSearchCount = [[RWImageDataManager sharedImageDataManager] currentSearchCount];
+    return currentSearchCount - currentSearchCount % 3;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -71,12 +77,25 @@
     } else {
         cell.backgroundColor=[UIColor blueColor];
     }
+    
+    
     return cell;
 }
 
 #pragma mark - UISearchBarDelegate
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [searchBar resignFirstResponder];
+    [[RWImageDataManager sharedImageDataManager] retrieveImagesWithSearchTerm:searchBar.text];
+}
+
+#pragma mark - RWImageDataManagerDelegate
+-(void) didRetrieveImageUrls {
+    NSLog(@"delegate was called");
+    if([[RWImageDataManager sharedImageDataManager] currentSearchCount] < 9) {
+        [[RWImageDataManager sharedImageDataManager] retrieveImagesWithSearchTerm:[RWImageDataManager sharedImageDataManager].currentSearchTerm];
+    } else {
+        [self.imageCollectionView reloadData];
+    }
 }
 
 @end

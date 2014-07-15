@@ -14,7 +14,7 @@
 		3656E31E1970CC8B004B4759 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3656E31D1970CC8B004B4759 /* Images.xcassets */; };
 		3656E32A1970CC8C004B4759 /* ImageFlickerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3656E3291970CC8C004B4759 /* ImageFlickerTests.m */; };
 		3685A25E1971BF4800CEAB58 /* RWImageCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3685A25D1971BF4800CEAB58 /* RWImageCollectionView.m */; };
-		36F58B741974AD0D00969D84 /* RWAFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 36F58B731974AD0D00969D84 /* RWAFHTTPRequestOperationManager.m */; };
+		36F58B741974AD0D00969D84 /* RWAFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 36F58B731974AD0D00969D84 /* RWAFHTTPSessionManager.m */; };
 		36F58B771974ADCA00969D84 /* RWImageDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 36F58B761974ADCA00969D84 /* RWImageDataManager.m */; };
 /* End PBXBuildFile section */
 
@@ -43,8 +43,8 @@
 		3685A25B1970F00F00CEAB58 /* ImageFlicker-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ImageFlicker-Prefix.pch"; sourceTree = "<group>"; };
 		3685A25C1971BF4800CEAB58 /* RWImageCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWImageCollectionView.h; sourceTree = "<group>"; };
 		3685A25D1971BF4800CEAB58 /* RWImageCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWImageCollectionView.m; sourceTree = "<group>"; };
-		36F58B721974AD0D00969D84 /* RWAFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWAFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
-		36F58B731974AD0D00969D84 /* RWAFHTTPRequestOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWAFHTTPRequestOperationManager.m; sourceTree = "<group>"; };
+		36F58B721974AD0D00969D84 /* RWAFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWAFHTTPSessionManager.h; sourceTree = "<group>"; };
+		36F58B731974AD0D00969D84 /* RWAFHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWAFHTTPSessionManager.m; sourceTree = "<group>"; };
 		36F58B751974ADCA00969D84 /* RWImageDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWImageDataManager.h; sourceTree = "<group>"; };
 		36F58B761974ADCA00969D84 /* RWImageDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWImageDataManager.m; sourceTree = "<group>"; };
 		4E3E2DF56CEA4334B7447DBF /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
@@ -145,6 +145,8 @@
 		3656E3341970CD2B004B4759 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				36F58B751974ADCA00969D84 /* RWImageDataManager.h */,
+				36F58B761974ADCA00969D84 /* RWImageDataManager.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -152,10 +154,8 @@
 		369F5AFE1971E39D0005CEE0 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				36F58B721974AD0D00969D84 /* RWAFHTTPRequestOperationManager.h */,
-				36F58B731974AD0D00969D84 /* RWAFHTTPRequestOperationManager.m */,
-				36F58B751974ADCA00969D84 /* RWImageDataManager.h */,
-				36F58B761974ADCA00969D84 /* RWImageDataManager.m */,
+				36F58B721974AD0D00969D84 /* RWAFHTTPSessionManager.h */,
+				36F58B731974AD0D00969D84 /* RWAFHTTPSessionManager.m */,
 			);
 			name = Network;
 			sourceTree = "<group>";
@@ -302,7 +302,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3656E3191970CC8B004B4759 /* RWImageFlickerViewController.m in Sources */,
-				36F58B741974AD0D00969D84 /* RWAFHTTPRequestOperationManager.m in Sources */,
+				36F58B741974AD0D00969D84 /* RWAFHTTPSessionManager.m in Sources */,
 				3685A25E1971BF4800CEAB58 /* RWImageCollectionView.m in Sources */,
 				3656E3161970CC8B004B4759 /* AppDelegate.m in Sources */,
 				36F58B771974ADCA00969D84 /* RWImageDataManager.m in Sources */,
