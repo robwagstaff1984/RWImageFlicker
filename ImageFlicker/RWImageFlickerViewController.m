@@ -9,6 +9,7 @@
 #import "RWImageFlickerViewController.h"
 #import "RWImageCollectionView.h"
 #import "RWImageDataManager.h"
+#import "RWImageCell.h"
 
 #define REUSE_IDENTIFIER @"imageCellIdentifier"
 
@@ -49,7 +50,7 @@
 {
     self.imageCollectionView = [RWImageCollectionView imageCollectionViewWithFrame:[self collectionViewFrame]];
     [self.imageCollectionView setDataSource:self];
-    [self.imageCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:REUSE_IDENTIFIER];
+    [self.imageCollectionView registerClass:[RWImageCell class] forCellWithReuseIdentifier:REUSE_IDENTIFIER];
     self.imageCollectionView.backgroundColor = [UIColor redColor];
 
     [self.view addSubview:self.imageCollectionView];
@@ -65,21 +66,22 @@
 #pragma mark - UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    int currentSearchCount = [[RWImageDataManager sharedImageDataManager] currentSearchCount];
-    return currentSearchCount - currentSearchCount % 3;
+//    int currentSearchCount = [[RWImageDataManager sharedImageDataManager] currentSearchCount];
+//    return currentSearchCount - currentSearchCount % 3;
+    return 8;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionViewCell *cell=[collectionView dequeueReusableCellWithReuseIdentifier:REUSE_IDENTIFIER forIndexPath:indexPath];
-    if (indexPath.row % 2 == 0) {
-        cell.backgroundColor=[UIColor greenColor];
-    } else {
-        cell.backgroundColor=[UIColor blueColor];
+    RWImageCell *imageCell=[collectionView dequeueReusableCellWithReuseIdentifier:REUSE_IDENTIFIER forIndexPath:indexPath];
+    
+    RWImageResult* imageResult = [[RWImageDataManager sharedImageDataManager] currentCacheAtPosition:indexPath.row];
+    
+    if (imageResult.imageData) {
+        imageCell.imageView.image = [[UIImage alloc] initWithData:imageResult.imageData];
     }
     
-    
-    return cell;
+    return imageCell;
 }
 
 #pragma mark - UISearchBarDelegate
@@ -89,13 +91,11 @@
 }
 
 #pragma mark - RWImageDataManagerDelegate
--(void) didRetrieveImageUrls {
+-(void) didRetrieveImageAtIndex:(int)index {
     NSLog(@"delegate was called");
-    if([[RWImageDataManager sharedImageDataManager] currentSearchCount] < 9) {
-        [[RWImageDataManager sharedImageDataManager] retrieveImagesWithSearchTerm:[RWImageDataManager sharedImageDataManager].currentSearchTerm];
-    } else {
-        [self.imageCollectionView reloadData];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.imageCollectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]]];
+    });
 }
 
 @end

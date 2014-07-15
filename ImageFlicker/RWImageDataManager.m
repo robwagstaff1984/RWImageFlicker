@@ -9,6 +9,7 @@
 #import "RWImageDataManager.h"
 #import "RWAFHTTPSessionManager.h"
 #import "AFHTTPRequestOperation.h"
+#import "RWImageResult.h"
 
 @implementation RWImageDataManager
 
@@ -26,12 +27,28 @@
 -(void)retrieveImagesWithSearchTerm:(NSString*) searchTerm {
     self.currentSearchTerm = searchTerm;
     
-    [[RWAFHTTPSessionManager sharedSessionManager] searchForImageWith:searchTerm offset:[self offset] withSuccess:^(NSArray *imageUrls) {
-        NSArray* cachedImageURLS =  [self.cache objectForKey:searchTerm] ?: @[];
-        cachedImageURLS = [cachedImageURLS arrayByAddingObjectsFromArray:imageUrls];
-        [self.cache setObject:cachedImageURLS forKey:searchTerm];
-        [self.delegate didRetrieveImageUrls];
+    [[RWAFHTTPSessionManager sharedSessionManager] searchForImageWith:searchTerm offset:[self offset] withSuccess:^(NSArray *imageResults) {
+        
+        [self updateCacheWithImageResults:imageResults];
+        [self downloadImagesInTheBackgroundFor:imageResults];
     }];
+}
+
+-(void) updateCacheWithImageResults:(NSArray*)imageResults {
+    NSArray* cachedImageURLS = [self.cache objectForKey:self.currentSearchTerm] ?: @[];
+    cachedImageURLS = [cachedImageURLS arrayByAddingObjectsFromArray:imageResults];
+    [self.cache setObject:cachedImageURLS forKey:self.currentSearchTerm];
+}
+
+-(void) downloadImagesInTheBackgroundFor:(NSArray*)imageResults {
+    for (RWImageResult* imageResult in imageResults) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),^{
+            imageResult.imageData = [NSData dataWithContentsOfURL:imageResult.imageURL];
+            NSLog(@"image Result");
+            int indexOfImage = [[self.cache objectForKey:[self currentSearchTerm]] indexOfObject:imageResult];
+            [self.delegate didRetrieveImageAtIndex:indexOfImage];
+        });
+    }
 }
 
 -(int) offset {
@@ -41,6 +58,11 @@
 
 -(int) currentSearchCount {
     return [[self.cache objectForKey:self.currentSearchTerm] count];
+}
+
+-(RWImageResult*) currentCacheAtPosition:(int)position {
+    RWImageResult* imageResult = [[RWImageDataManager sharedImageDataManager].cache objectForKey:[RWImageDataManager sharedImageDataManager].currentSearchTerm][position];
+    return imageResult;
 }
 
 @end

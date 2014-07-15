@@ -9,6 +9,7 @@
 #define IMAGE_SEARCH_RELATIVE_URL @"images"
 
 #import "RWAFHTTPSessionManager.h"
+#import "RWImageResult.h"
 
 @implementation RWAFHTTPSessionManager
 
@@ -27,8 +28,8 @@
     
     [[RWAFHTTPSessionManager sharedSessionManager] GET:IMAGE_SEARCH_RELATIVE_URL parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
         
-        NSArray* imageURLs = [self extractImageUrlsFromImageSearchResponse:responseObject];
-        successBlock(imageURLs);
+        NSArray* imageResults = [self extractImageUrlsFromImageSearchResponse:responseObject];
+        successBlock(imageResults);
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"Failed to retrieve images results for: %@\nError:\n%@", searchTerm, error);
@@ -42,13 +43,14 @@
 -(NSArray*) extractImageUrlsFromImageSearchResponse:(id)imageSearchResponse {
     NSDictionary* results = imageSearchResponse[@"responseData"][@"results"];
     
-    NSMutableArray* imageURLs = [NSMutableArray new];
+    NSMutableArray* imageResults = [NSMutableArray new];
     
     for (NSDictionary* result in results) {
-        NSURL* imageURL = [NSURL URLWithString:result[@"url"]];
-        [imageURLs addObject:imageURL];
+        RWImageResult* imageResult = [RWImageResult new];
+        imageResult.imageURL = [NSURL URLWithString:result[@"url"]];
+        [imageResults addObject:imageResult];
     }
-    return imageURLs;
+    return imageResults;
 }
 
 @end

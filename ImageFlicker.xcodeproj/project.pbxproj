@@ -16,6 +16,8 @@
 		3685A25E1971BF4800CEAB58 /* RWImageCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3685A25D1971BF4800CEAB58 /* RWImageCollectionView.m */; };
 		36F58B741974AD0D00969D84 /* RWAFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 36F58B731974AD0D00969D84 /* RWAFHTTPSessionManager.m */; };
 		36F58B771974ADCA00969D84 /* RWImageDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 36F58B761974ADCA00969D84 /* RWImageDataManager.m */; };
+		36F58B7A1974EF4300969D84 /* RWImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 36F58B791974EF4300969D84 /* RWImageCell.m */; };
+		36F58B7D1974F1BD00969D84 /* RWImageResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 36F58B7C1974F1BD00969D84 /* RWImageResult.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,10 @@
 		36F58B731974AD0D00969D84 /* RWAFHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWAFHTTPSessionManager.m; sourceTree = "<group>"; };
 		36F58B751974ADCA00969D84 /* RWImageDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWImageDataManager.h; sourceTree = "<group>"; };
 		36F58B761974ADCA00969D84 /* RWImageDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWImageDataManager.m; sourceTree = "<group>"; };
+		36F58B781974EF4300969D84 /* RWImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWImageCell.h; sourceTree = "<group>"; };
+		36F58B791974EF4300969D84 /* RWImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWImageCell.m; sourceTree = "<group>"; };
+		36F58B7B1974F1BD00969D84 /* RWImageResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWImageResult.h; sourceTree = "<group>"; };
+		36F58B7C1974F1BD00969D84 /* RWImageResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWImageResult.m; sourceTree = "<group>"; };
 		4E3E2DF56CEA4334B7447DBF /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		C7A71A8737F0490A863226AE /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -138,6 +144,8 @@
 				3656E3181970CC8B004B4759 /* RWImageFlickerViewController.m */,
 				3685A25C1971BF4800CEAB58 /* RWImageCollectionView.h */,
 				3685A25D1971BF4800CEAB58 /* RWImageCollectionView.m */,
+				36F58B781974EF4300969D84 /* RWImageCell.h */,
+				36F58B791974EF4300969D84 /* RWImageCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -147,6 +155,8 @@
 			children = (
 				36F58B751974ADCA00969D84 /* RWImageDataManager.h */,
 				36F58B761974ADCA00969D84 /* RWImageDataManager.m */,
+				36F58B7B1974F1BD00969D84 /* RWImageResult.h */,
+				36F58B7C1974F1BD00969D84 /* RWImageResult.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -304,7 +314,9 @@
 				3656E3191970CC8B004B4759 /* RWImageFlickerViewController.m in Sources */,
 				36F58B741974AD0D00969D84 /* RWAFHTTPSessionManager.m in Sources */,
 				3685A25E1971BF4800CEAB58 /* RWImageCollectionView.m in Sources */,
+				36F58B7A1974EF4300969D84 /* RWImageCell.m in Sources */,
 				3656E3161970CC8B004B4759 /* AppDelegate.m in Sources */,
+				36F58B7D1974F1BD00969D84 /* RWImageResult.m in Sources */,
 				36F58B771974ADCA00969D84 /* RWImageDataManager.m in Sources */,
 				3656E3131970CC8B004B4759 /* main.m in Sources */,
 			);
