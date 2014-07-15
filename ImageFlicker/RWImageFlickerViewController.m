@@ -51,7 +51,6 @@
     self.imageCollectionView = [RWImageCollectionView imageCollectionViewWithFrame:[self collectionViewFrame]];
     [self.imageCollectionView setDataSource:self];
     [self.imageCollectionView registerClass:[RWImageCell class] forCellWithReuseIdentifier:REUSE_IDENTIFIER];
-    self.imageCollectionView.backgroundColor = [UIColor redColor];
 
     [self.view addSubview:self.imageCollectionView];
 }
@@ -79,6 +78,9 @@
     
     if (imageResult.imageData) {
         imageCell.imageView.image = [[UIImage alloc] initWithData:imageResult.imageData];
+        [imageCell stopSpinner];
+    } else {
+        [imageCell startSpinner];
     }
     
     return imageCell;

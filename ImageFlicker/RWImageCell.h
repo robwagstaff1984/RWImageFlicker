@@ -10,4 +10,7 @@
 
 @interface RWImageCell : UICollectionViewCell
 @property (nonatomic, strong) UIImageView* imageView;
+
+-(void) startSpinner;
+-(void) stopSpinner;
 @end

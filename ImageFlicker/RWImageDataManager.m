@@ -44,7 +44,6 @@
     for (RWImageResult* imageResult in imageResults) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),^{
             imageResult.imageData = [NSData dataWithContentsOfURL:imageResult.imageURL];
-            NSLog(@"image Result");
             int indexOfImage = [[self.cache objectForKey:[self currentSearchTerm]] indexOfObject:imageResult];
             [self.delegate didRetrieveImageAtIndex:indexOfImage];
         });
