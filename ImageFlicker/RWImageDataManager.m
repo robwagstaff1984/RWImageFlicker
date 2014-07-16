@@ -24,6 +24,7 @@
     return _sharedImageDataManager;
 }
 
+#pragma mark - retrieveImages
 -(void)retrieveMoreImages {
     [self retrieveImagesWithSearchTerm:self.currentSearchTerm];
 }

@@ -23,7 +23,6 @@
 @property (nonatomic, strong) UITableView* searchHistoryTableView;
 @property (nonatomic, strong) NSMutableOrderedSet* searchHistory;
 
-
 @end
 
 @implementation RWImageFlickerViewController

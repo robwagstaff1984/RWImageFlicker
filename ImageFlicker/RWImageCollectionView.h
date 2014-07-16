@@ -10,7 +10,6 @@
 
 @interface RWImageCollectionView : UICollectionView
 
-//TODO should this be a class method? should it be an init
 +(RWImageCollectionView*) imageCollectionViewWithFrame:(CGRect)frame;
 
 @end

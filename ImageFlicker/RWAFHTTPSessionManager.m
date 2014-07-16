@@ -7,6 +7,10 @@
 //
 #define IMAGE_SEARCH_BASE_URL [NSURL URLWithString:@"https://ajax.googleapis.com/ajax/services/search"]
 #define IMAGE_SEARCH_RELATIVE_URL @"images"
+#define PARAM_VERSION @"v"
+#define PARAM_RESULTS_SIZE @"rsz"
+#define PARAM_QUERY @"q"
+#define PARAM_OFFSET @"start"
 
 #import "RWAFHTTPSessionManager.h"
 #import "RWImageResult.h"
@@ -39,7 +43,7 @@
 }
 
 -(NSDictionary*) paramatersForImageSearchTerm:(NSString*)searchTerm offset:(int)offset{
-    return @{@"v" : @"1.0", @"rsz" : @"8", @"q" : searchTerm, @"start": [NSString stringWithFormat:@"%d", offset]};
+    return @{PARAM_VERSION: @"1.0", PARAM_RESULTS_SIZE : @"8", PARAM_QUERY : searchTerm, PARAM_OFFSET : [NSString stringWithFormat:@"%d", offset]};
 }
 
 -(NSArray*) extractImageUrlsFromImageSearchResponse:(id)imageSearchResponse {

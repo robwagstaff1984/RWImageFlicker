@@ -17,14 +17,10 @@
 - (void) didRetrieveImageMetaDataAtIndex:(int)index;
 @end
 
-
 @interface RWImageDataManager : NSObject
 
 @property (nonatomic, strong) NSCache* cache;
 @property (nonatomic, strong) NSString* currentSearchTerm;
-
-
-
 @property (nonatomic, weak) id <RWImageDataManagerDelegate> delegate;
 
 +(RWImageDataManager*) sharedImageDataManager;
