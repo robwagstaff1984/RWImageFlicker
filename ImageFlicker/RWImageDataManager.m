@@ -53,7 +53,7 @@
 -(void) notifyDelegateOfNewMetaData:(NSArray*)imageResults {
     RWSearchResult* searchResult = [self currentSearchResult];
    
-    int indexOfImageMetaData = [searchResult.imageResults indexOfObject:imageResults[0]];
+    int indexOfImageMetaData = (int)[searchResult.imageResults indexOfObject:imageResults[0]];
     [self.delegate didRetrieveImageMetaDataAtIndex:indexOfImageMetaData];
 }
 
@@ -68,7 +68,7 @@
 
 #pragma mark - convenience methods
 -(int) currentSearchCount {
-    return [[self currentSearchResult].imageResults count];
+    return (int)[[self currentSearchResult].imageResults count];
 }
 
 -(RWSearchResult*) currentSearchResult {
@@ -81,6 +81,6 @@
 
 -(int) currentCacheIndexOfImageResult:(RWImageResult*) imageResult {
     RWSearchResult* currentSearchResult = [[RWImageDataManager sharedImageDataManager] currentSearchResult];
-    return [currentSearchResult.imageResults indexOfObject:imageResult];
+    return (int)[currentSearchResult.imageResults indexOfObject:imageResult];
 }
 @end
