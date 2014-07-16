@@ -21,7 +21,7 @@
     self = [super initWithFrame:frameRect];
     if (self) {
         self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frameRect.size.width, frameRect.size.height)];
-        self.imageView.backgroundColor = [UIColor lightGrayColor];
+        self.imageView.contentMode = UIViewContentModeScaleAspectFit;
         [self addSubview:self.imageView];
         [self setupSpinner];
     }
@@ -30,8 +30,8 @@
 
 -(void) setupSpinner {
     self.activityIndicatorView = [[UIActivityIndicatorView alloc] init];
-    self.activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-    self.activityIndicatorView.color = [UIColor blackColor];
+    self.activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+    self.activityIndicatorView.color = [UIColor whiteColor];
     [self addSubview:self.activityIndicatorView];
     
     self.activityIndicatorView.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);

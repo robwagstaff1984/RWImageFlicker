@@ -29,7 +29,9 @@
     [[RWAFHTTPSessionManager sharedSessionManager] GET:IMAGE_SEARCH_RELATIVE_URL parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
         
         NSArray* imageResults = [self extractImageUrlsFromImageSearchResponse:responseObject];
-        successBlock(imageResults);
+        if ([imageResults count] && successBlock) {
+            successBlock(imageResults);
+        }
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"Failed to retrieve images results for: %@\nError:\n%@", searchTerm, error);
@@ -41,10 +43,16 @@
 }
 
 -(NSArray*) extractImageUrlsFromImageSearchResponse:(id)imageSearchResponse {
-    NSDictionary* results = imageSearchResponse[@"responseData"][@"results"];
-    
+    NSDictionary* responseData = imageSearchResponse[@"responseData"];
+    if (responseData!= (id)[NSNull null]) {
+        return [self convertToImageResultsFromResults:responseData[@"results"]];
+    }
+    NSLog(@"Error extracting image URLS");
+    return nil;
+}
+
+-(NSArray*) convertToImageResultsFromResults:(NSDictionary*)results {
     NSMutableArray* imageResults = [NSMutableArray new];
-    
     for (NSDictionary* result in results) {
         RWImageResult* imageResult = [RWImageResult new];
         imageResult.imageURL = [NSURL URLWithString:result[@"url"]];

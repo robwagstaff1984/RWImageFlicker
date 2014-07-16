@@ -8,11 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "RWImageResult.h"
+#import "RWSearchResult.h"
 
 @protocol RWImageDataManagerDelegate <NSObject>
 
 @required
-- (void) didRetrieveImageAtIndex:(int)index;
+- (void) didRetrieveImageResult:(RWImageResult*)imageResult;
+- (void) didRetrieveImageMetaDataAtIndex:(int)index;
 @end
 
 
@@ -20,7 +22,7 @@
 
 @property (nonatomic, strong) NSCache* cache;
 @property (nonatomic, strong) NSString* currentSearchTerm;
-@property (nonatomic, assign) int currentSearchCount;
+
 
 
 @property (nonatomic, weak) id <RWImageDataManagerDelegate> delegate;
@@ -28,6 +30,11 @@
 +(RWImageDataManager*) sharedImageDataManager;
 
 -(void)retrieveImagesWithSearchTerm:(NSString*) searchTerm;
+-(void)retrieveMoreImages;
+
+-(int) currentSearchCount;
+-(RWSearchResult*) currentSearchResult;
 -(RWImageResult*) currentCacheAtPosition:(int)position;
+-(int) currentCacheIndexOfImageResult:(RWImageResult*) imageResult;
 
 @end

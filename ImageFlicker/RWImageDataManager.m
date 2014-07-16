@@ -10,6 +10,7 @@
 #import "RWAFHTTPSessionManager.h"
 #import "AFHTTPRequestOperation.h"
 #import "RWImageResult.h"
+#import "RWSearchResult.h"
 
 @implementation RWImageDataManager
 
@@ -23,45 +24,63 @@
     return _sharedImageDataManager;
 }
 
+-(void)retrieveMoreImages {
+    [self retrieveImagesWithSearchTerm:self.currentSearchTerm];
+}
 
 -(void)retrieveImagesWithSearchTerm:(NSString*) searchTerm {
     self.currentSearchTerm = searchTerm;
     
-    [[RWAFHTTPSessionManager sharedSessionManager] searchForImageWith:searchTerm offset:[self offset] withSuccess:^(NSArray *imageResults) {
-        
+    [[RWAFHTTPSessionManager sharedSessionManager] searchForImageWith:searchTerm offset:[self currentSearchCount] withSuccess:^(NSArray *imageResults) {
         [self updateCacheWithImageResults:imageResults];
+        [self notifyDelegateOfNewMetaData:imageResults];
         [self downloadImagesInTheBackgroundFor:imageResults];
     }];
 }
 
--(void) updateCacheWithImageResults:(NSArray*)imageResults {
-    NSArray* cachedImageURLS = [self.cache objectForKey:self.currentSearchTerm] ?: @[];
-    cachedImageURLS = [cachedImageURLS arrayByAddingObjectsFromArray:imageResults];
-    [self.cache setObject:cachedImageURLS forKey:self.currentSearchTerm];
+-(void) updateCacheWithImageResults:(NSArray*)newImageResults {
+    
+    RWSearchResult* searchResult = [self currentSearchResult] ?: [RWSearchResult new];
+    
+    NSMutableArray* cachedImageResults = searchResult.imageResults;
+    [cachedImageResults addObjectsFromArray:newImageResults];
+    
+    searchResult.imageResults = cachedImageResults;
+    
+    [self.cache setObject:searchResult forKey:self.currentSearchTerm];
+}
+
+-(void) notifyDelegateOfNewMetaData:(NSArray*)imageResults {
+    RWSearchResult* searchResult = [self currentSearchResult];
+   
+    int indexOfImageMetaData = [searchResult.imageResults indexOfObject:imageResults[0]];
+    [self.delegate didRetrieveImageMetaDataAtIndex:indexOfImageMetaData];
 }
 
 -(void) downloadImagesInTheBackgroundFor:(NSArray*)imageResults {
     for (RWImageResult* imageResult in imageResults) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),^{
-            imageResult.imageData = [NSData dataWithContentsOfURL:imageResult.imageURL];
-            int indexOfImage = [[self.cache objectForKey:[self currentSearchTerm]] indexOfObject:imageResult];
-            [self.delegate didRetrieveImageAtIndex:indexOfImage];
+            imageResult.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageResult.imageURL]];
+            [self.delegate didRetrieveImageResult:imageResult];
         });
     }
 }
 
--(int) offset {
-    NSOrderedSet* imageUrls = (NSOrderedSet*)[self.cache objectForKey:self.currentSearchTerm];
-    return [imageUrls count];
+#pragma mark - convenience methods
+-(int) currentSearchCount {
+    return [[self currentSearchResult].imageResults count];
 }
 
--(int) currentSearchCount {
-    return [[self.cache objectForKey:self.currentSearchTerm] count];
+-(RWSearchResult*) currentSearchResult {
+    return [self.cache objectForKey:self.currentSearchTerm];
 }
 
 -(RWImageResult*) currentCacheAtPosition:(int)position {
-    RWImageResult* imageResult = [[RWImageDataManager sharedImageDataManager].cache objectForKey:[RWImageDataManager sharedImageDataManager].currentSearchTerm][position];
-    return imageResult;
+    return [self currentSearchResult].imageResults[position];
 }
 
+-(int) currentCacheIndexOfImageResult:(RWImageResult*) imageResult {
+    RWSearchResult* currentSearchResult = [[RWImageDataManager sharedImageDataManager] currentSearchResult];
+    return [currentSearchResult.imageResults indexOfObject:imageResult];
+}
 @end

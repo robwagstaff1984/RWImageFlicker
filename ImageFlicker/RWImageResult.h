@@ -11,8 +11,6 @@
 @interface RWImageResult : NSObject
 
 @property (nonatomic, strong) NSURL* imageURL;
-@property (nonatomic, strong) NSData* imageData;
-
-
+@property (nonatomic, strong) UIImage* image;
 
 @end

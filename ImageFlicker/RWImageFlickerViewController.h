@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "RWImageDataManager.h"
 
-@interface RWImageFlickerViewController : UIViewController<UICollectionViewDataSource, UISearchBarDelegate, RWImageDataManagerDelegate>
+@interface RWImageFlickerViewController : UIViewController<UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate, RWImageDataManagerDelegate>
 
 
 @end
