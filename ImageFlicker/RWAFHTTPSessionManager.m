@@ -31,12 +31,10 @@
     NSDictionary* parameters = [self paramatersForImageSearchTerm:searchTerm offset:offset];
     
     [[RWAFHTTPSessionManager sharedSessionManager] GET:IMAGE_SEARCH_RELATIVE_URL parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
-        
         NSArray* imageResults = [self extractImageUrlsFromImageSearchResponse:responseObject];
         if ([imageResults count] && successBlock) {
             successBlock(imageResults);
         }
-        
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"Failed to retrieve images results for: %@\nError:\n%@", searchTerm, error);
     }];

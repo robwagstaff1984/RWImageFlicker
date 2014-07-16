@@ -103,7 +103,6 @@
 #pragma mark UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == [[RWImageDataManager sharedImageDataManager] currentSearchCount] - 1) {
-        NSLog(@"infinite scroll");
         [[RWImageDataManager sharedImageDataManager] retrieveMoreImages];
     }
 }
@@ -145,10 +144,7 @@
 #pragma mark - RWImageDataManagerDelegate
 - (void) didRetrieveImageResult:(RWImageResult*)imageResult {
     dispatch_async(dispatch_get_main_queue(), ^{
-        
         int indexOfImage = [[RWImageDataManager sharedImageDataManager] currentCacheIndexOfImageResult:imageResult];
-        NSLog(@"%d", indexOfImage);
-        
         if (indexOfImage > 0) {
             [self.imageCollectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:indexOfImage inSection:0]]];
         }
