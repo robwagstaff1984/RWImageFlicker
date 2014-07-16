@@ -7,7 +7,6 @@
 //
 
 #import "RWImageCell.h"
-#import "MBProgressHUD.h"
 
 @interface RWImageCell()
 
