@@ -49,7 +49,7 @@
     if (responseData!= (id)[NSNull null]) {
         return [self convertToImageResultsFromResults:responseData[@"results"]];
     }
-    NSLog(@"Error extracting image URLS");
+    NSLog(@"Error extracting image URLS: responseData is null");
     return nil;
 }
 

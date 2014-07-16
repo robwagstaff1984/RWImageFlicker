@@ -15,6 +15,7 @@
 #define COLLECTION_VIEW_REUSE_IDENTIFIER @"imageCellIdentifier"
 #define TABLE_VIEW_REUSE_IDENTIFIER @"searchHistoryIdentifier"
 #define SEARCH_BAR_TEXT @"Search for images";
+#define DEFAULT_SEARCH_TERM @"Adorable puppies"
 
 @interface RWImageFlickerViewController ()
 
@@ -40,6 +41,7 @@
     [self setupCollectionView];
     [self setupTableView];
     self.searchHistory = [NSMutableOrderedSet new];
+     [[RWImageDataManager sharedImageDataManager] retrieveImagesWithSearchTerm:DEFAULT_SEARCH_TERM];
 }
 
 
